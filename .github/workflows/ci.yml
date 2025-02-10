@@ -1,49 +1,48 @@
 name: GitHub CI
 
 on:
--   push
--   pull_request
+  push:
+  pull_request:
 
 jobs:
-    windowsBuild:
-        name: Windows Build
-        runs-on: windows-latest
-        env:
-            LLVM_VERSION: 19.1.7
-            LLVM_MAJOR_VERSION: 19
+  windowsBuild:
+    name: Windows Build
+    runs-on: windows-latest
+    env:
+      LLVM_VERSION: 19.1.7
+      LLVM_MAJOR_VERSION: 19
 
-        strategy:
-            fail-fast: false
-            matrix:
-                CRT:
-                -   libcmt
+    strategy:
+      fail-fast: false
+      matrix:
+        CRT:
+        - libcmt
 
-                TARGET_CPU:
-                -   amd64
+        TARGET_CPU:
+        - amd64
 
-                CONFIGURATION:
-                -   Release
+        CONFIGURATION:
+        - Release
 
-        steps:
-        -   name: Checkout repo
-            uses: actions/checkout@v2
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
 
-        -   name: Install
-            shell: cmd
-            run: |
-                call %GITHUB_WORKSPACE%\set-env.bat msvc17 ${{matrix.CRT}} ${{matrix.TARGET_CPU}} ${{matrix.CONFIGURATION}}
-                call %GITHUB_WORKSPACE%\install.bat
+    - name: Install
+      shell: cmd
+      run: |
+        call %GITHUB_WORKSPACE%\set-env.bat msvc17 ${{matrix.CRT}} ${{matrix.TARGET_CPU}} ${{matrix.CONFIGURATION}}
+        call %GITHUB_WORKSPACE%\install.bat
 
-        -   name: Build and test
-            id: BUILD
-            shell: cmd
-            run: |
-                call %GITHUB_WORKSPACE%\set-env.bat msvc17 ${{matrix.CRT}} ${{matrix.TARGET_CPU}} ${{matrix.CONFIGURATION}}
-                call %GITHUB_WORKSPACE%\build.bat
-                echo ::set-output name=DEPLOY_FILE::%DEPLOY_FILE%
+    - name: Build and test
+      id: BUILD
+      shell: cmd
+      run: |
+        call %GITHUB_WORKSPACE%\set-env.bat msvc17 ${{matrix.CRT}} ${{matrix.TARGET_CPU}} ${{matrix.CONFIGURATION}}
+        call %GITHUB_WORKSPACE%\build.bat
+        echo ::set-output name=DEPLOY_FILE::%DEPLOY_FILE%
 
-        -   name: Release
-            uses: softprops/action-gh-release@v1
-            if: startsWith(github.ref, 'refs/tags/')
-            with:
-                files: ${{steps.BUILD.outputs.DEPLOY_FILE}}
+    - name: Upload to GitHub Releases
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{steps.BUILD.outputs.DEPLOY_FILE}}
