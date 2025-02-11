@@ -44,4 +44,4 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: llvm-msvc
-        path: D:\a\win-llvm\win-llvm\llvm-19.1.7-windows-amd64-msvc17-libcmt.7z
+        path: D:\a\win-llvm\win-llvm\llvm-19.1.7-windows-amd64-msvc17-msvcrt.7z
