@@ -1,0 +1,16 @@
+name: GitHub CI
+
+on:
+    workflow_dispatch:
+
+jobs:
+  windowsBuild:
+    name: Windows Build
+    runs-on: windows-latest
+
+    steps:
+        - run: echo "pogu" > your_file.txt
+        - uses: actions/upload-artifact@v4
+          with:
+              name: my-artifact
+              path: your_file.txt
