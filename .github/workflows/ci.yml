@@ -40,11 +40,8 @@ jobs:
         call %GITHUB_WORKSPACE%\set-env.bat msvc17 ${{matrix.CRT}} ${{matrix.TARGET_CPU}} ${{matrix.CONFIGURATION}}
         call %GITHUB_WORKSPACE%\build.bat
         echo ::set-output name=DEPLOY_FILE::%DEPLOY_FILE%
-        set ARTIFACT_PATH=C:\a\win-llvm\win-llvm
-        set ARTIFACT_PATH=%ARTIFACT_PATH%\%DEPLOY_FILE%
-        echo ARTIFACT_PATH=%ARTIFACT_PATH% >> $env:GITHUB_ENV
         
     - uses: actions/upload-artifact@v4
       with:
         name: llvm-msvc
-        path: ${{ env.ARTIFACT_PATH }}
+        path: D:\a\win-llvm\win-llvm\llvm-19.1.7-windows-amd64-msvc17-libcmt.7z
