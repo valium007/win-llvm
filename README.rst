@@ -24,14 +24,12 @@ The ``llvm-package-windows`` project builds all major versions of LLVM on **GitH
 	- Visual Studio 2019
 
 * Configuration:
-	- Debug
 	- Release
 
 * Target CPU:
 	- AMD64 (a.k.a. x86_64)
 
 * C/C++ Runtime:
-	- LIBCMT (static)
 	- MSVCRT (dynamic)
 
 The resulting LLVM binary packages are uploaded as GitHub Release artifacts. Compiler developers can now thoroughly test their LLVM-dependent projects on GitHub CI or AppVeyor CI simply by downloading and unpacking an archive with the required LLVM prebuilt binaries during the CI installation stage.
