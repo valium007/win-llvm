@@ -2,7 +2,6 @@
 Download builds from [actions](https://github.com/valium007/win-llvm/actions) tab
 
 ## Abstract
---------
 
 LLVM is huge, and it's getting bigger with each and every release. Building it together with a project that depends on it (e.g., a programming language) during a CI build is **not an option** -- building *just LLVM* eats most (earlier LLVM releases), and all (recent LLVM releases) of the allotted CI build time.
 
