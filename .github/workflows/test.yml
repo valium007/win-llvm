@@ -3,6 +3,9 @@ name: GitHub CI
 on:
     workflow_dispatch:
 
+env:
+    FILE: your_file.txt
+
 jobs:
   windowsBuild:
     name: Windows Build
@@ -13,4 +16,4 @@ jobs:
         - uses: actions/upload-artifact@v4
           with:
               name: my-artifact
-              path: your_file.txt
+              path: ${{ env.FILE }}
