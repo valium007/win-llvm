@@ -8,7 +8,7 @@ jobs:
     name: Windows Build
     runs-on: windows-latest
     env:
-      LLVM_VERSION: 20.1.8
+      LLVM_VERSION: 21.1.6
       LLVM_MAJOR_VERSION: 20
 
     strategy:
